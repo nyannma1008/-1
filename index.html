@@ -54,6 +54,14 @@
             </div>
         </div>
 
+        <div class="question">
+            <p>3. あなたはおすろのこですか？</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="100" required> はい</label>
+                <label><input type="radio" name="q4" value="1"> いいえ</label>
+            </div>
+        </div>
+
         <button type="button" onclick="startDiagnosis()">運命の結果を見る！</button>
     </form>
 </div>
@@ -75,7 +83,8 @@ function startDiagnosis() {
     // スコア計算
     const score = parseInt(form.elements['q1'].value) + 
                   parseInt(form.elements['q2'].value) + 
-                  parseInt(form.elements['q3'].value);
+                  parseInt(form.elements['q3'].value) +
+                  parseInt(form.elements['q4'].value);
 
     // ローディング画面を表示
     document.getElementById('loading').style.display = 'flex';
