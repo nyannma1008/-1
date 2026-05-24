@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>診断結果 - ダチョウ診断</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #8b5a2b; color: #333; text-align: center; padding: 20px; margin: 0; }
+        .result-container { max-width: 600px; background: #fff; margin: 40px auto; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: pop 0.5s ease-out; }
+        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .accent-title { font-size: 16px; color: #e67e22; font-weight: bold; letter-spacing: 2px; }
+        #resultTitle { font-size: 28px; color: #8b5a2b; margin: 15px 0; font-weight: Arial; }
+        
+        /* スコアの特大円グラフ風表示 */
+        .score-box { background: #fff8ee; border: 3px solid #e67e22; display: inline-block; padding: 20px 40px; border-radius: 50px; font-size: 24px; font-weight: bold; color: #e67e22; margin: 20px 0; }
+        
+        #resultText { font-size: 16px; line-height: 1.8; text-align: left; background: #faf7f2; padding: 20px; border-radius: 10px; margin: 25px 0; border-left: 5px solid #e67e22; }
+        
+        .btn-retry { display: inline-block; background-color: #34495e; color: white; text-decoration: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 25px; margin-top: 10px; }
+        .btn-retry:hover { background-color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+<div class="result-container">
+    <div class="accent-title">✦ 診断結果発表 ✦</div>
+    
+    <!-- パーセンテージ表示 -->
+    <div class="score-box" id="scorePercent">計測中...</div>
+    
+    <!-- 称号 -->
+    <h1 id="resultTitle">判定中...</h1>
+    
+    <!-- 解説文 -->
+    <p id="resultText"></p>
+    
+    <a href="index.html" class="btn-retry">もう一度診断する</a>
+</div>
+
+<script>
+// URLから送られてきた点数（score）を読み取るプログラム
+const urlParams = new URLSearchParams(window.location.search);
+const score = parseInt(urlParams.get('score')) || 0;
+
+let percent = "0%";
+let title = "";
+let text = "";
+
+// 点数に応じた結果の分岐
+if (score >= 8) {
+    percent = "ダチョウ度 90%";
+    title = "🎉 ほぼ本物のダチョウ 🎉";
+    text = "おめでとうございます（？）あなたの脳みそはダチョウサイズ（目玉より小さい）かもしれません！嫌なことがあると砂に頭を突っ込んで隠れたつもりになっていませんか？圧倒的な忘却力と時速70kmの逃げ足で、現代のストレス社会を最強にスルーして生きていける野生の逸材です。";
+} else if (score >= 5) {
+    percent = "ダチョウ度 50%";
+    title = "🏃 ポテンシャル高めのダチョウ 🏃";
+    text = "あなたは普段は人間らしく理性的ですが、追い詰められるとダチョウの血が激しく騒ぎ出すタイプです。「まあいっか」と3歩歩いて忘れる素晴らしい素質を持っています。たまに現実逃避したくなったら、広大な大地を全力疾走してみましょう。";
+} else {
+    percent = "ダチョウ度 10%";
+    title = "💡 知性あふれる「超」人間 💡";
+    text = "あなたはダチョウとは真逆の、大変記憶力が良くて現実から絶対に目を背けない素晴らしい人間です。ただ、物事を深く考えすぎて疲れてしまう傾向があります。たまにはダチョウを見習って「何も考えずに生きる潔さ」を取り入れてみると楽になりますよ！";
+}
+
+// 画面に結果を書き込む
+document.getElementById('scorePercent').innerText = percent;
+document.getElementById('resultTitle').innerText = title;
+document.getElementById('resultText').innerText = text;
+</script>
+
+</body>
+</html>
